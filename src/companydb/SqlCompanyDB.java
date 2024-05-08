@@ -14,7 +14,7 @@ public class SqlCompanyDB {
     public static Connection con;
     public static void ConnectToSQL(){ // to connect to SQL
      try {
-     String url = "jdbc:sqlserver://localhost:1433;databaseName=m;integratedSecurity=false;encrypt=false;";
+     String url = "jdbc:sqlserver://localhost:1433;databaseName=companyDB;integratedSecurity=false;encrypt=false;";
      String username ="123";
      String password ="123";
      con = DriverManager.getConnection(url, username,password);
