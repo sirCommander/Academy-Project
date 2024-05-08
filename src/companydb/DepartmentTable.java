@@ -5,6 +5,7 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
  import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -28,9 +29,15 @@ public class DepartmentTable extends Frame  implements ActionListener{
     TextField tMssn=new TextField();
 
     TextArea  outputT4=new TextArea();
+    
+    String[] cols = new String[]{"Dname", "Dnumber", "M_start_date", "M_ssn"};
+    TextField[] textFields = {tDname, tDnumber, tstartDate, tMssn};
 
-    DepartmentTable(String title) {
+    Frame main;
+    
+    DepartmentTable(String title, Frame main) {
         super(title);
+        this.main = main;
 
         setLayout(null);
         setBackground(new Color(0,0,0));
@@ -130,24 +137,23 @@ public class DepartmentTable extends Frame  implements ActionListener{
         add(outputT4);
     }
     public static void main(String[] args) {
-        DepartmentTable dep = new DepartmentTable("Department");
-        dep.setVisible(true);
+//        DepartmentTable dep = new DepartmentTable("Department");
+//        dep.setVisible(true);
     }
-
+   
     @Override
     public void actionPerformed(ActionEvent dep) {
-        CompanyDB e = new CompanyDB();
         if(dep.getSource()==select)
         {
             
         }
         if(dep.getSource()==insert)
         {
-            
+            SqlCompanyDB.insert("Department", SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
         if(dep.getSource()==delete)
         {
-            
+            SqlCompanyDB.delete("Department", "Dnumber", tDnumber.getText());
         }
         if(dep.getSource()==update)
         {
@@ -157,13 +163,12 @@ public class DepartmentTable extends Frame  implements ActionListener{
         if(dep.getSource()==back)
         {
             setVisible(false);
-            e.f2.setVisible(true);
+            main.setVisible(true);
         }
                 if(dep.getSource()==ex)
         {
             System.exit(0);
         }
-            e.f1.setVisible(false);
 
     }
 }

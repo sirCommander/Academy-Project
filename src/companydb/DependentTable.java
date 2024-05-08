@@ -30,9 +30,15 @@ public class DependentTable extends Frame  implements ActionListener{
     Button back=new Button("Back");
 
     TextArea  outputT3=new TextArea();
+    
+    Frame main;
+    
+    String[] cols = new String[]{"Essn", "Dependent_name", "sex", "Bdate", "Relationship"};
+    TextField[] textFields = {tDEssn, tdependentName, tDsex, tDBdate, trelationship};
 
-    DependentTable(String title){
+    DependentTable(String title, Frame main) {
         super(title);
+        this.main = main;
 
         setLayout(null);
         setBackground(new Color(0,0,0));
@@ -147,24 +153,23 @@ public class DependentTable extends Frame  implements ActionListener{
     }
 
     public static void main(String[] args) {
-        DependentTable depend = new DependentTable("Dependent");
-        depend.setVisible(true);
+//        DependentTable depend = new DependentTable("Dependent");
+//        depend.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent depend) {
-        CompanyDB e = new CompanyDB();
         if(depend.getSource()==select)
         {
             
         }
         if(depend.getSource()==insert)
         {
-            
+            SqlCompanyDB.insert("DEPENDENT1", SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
         if(depend.getSource()==delete)
         {
-            
+            SqlCompanyDB.delete("DEPENDENT1", "Essn", DEssn.getText());
         }
         if(depend.getSource()==update)
         {
@@ -174,13 +179,12 @@ public class DependentTable extends Frame  implements ActionListener{
         if(depend.getSource()==back)
         {
             setVisible(false);
-            e.f2.setVisible(true);
+            main.setVisible(true);
         }
         if(depend.getSource()==ex)
         {
             System.exit(0);
         }
-            e.f1.setVisible(false);
 
     }
 

@@ -40,16 +40,15 @@ Button dependent=new Button("Dependent");
 Button back=new Button("Back");
 Button ex2=new Button("Exit");
 
-EmployeeTable EmployeeTable = new EmployeeTable("Employee");
-Works_onTable Works_onTable = new Works_onTable("Works_on");
-DependentTable DependentTable = new DependentTable("Dependent");
-DepartmentTable DepartmentTable = new DepartmentTable("Department");
-DepartLocationTable DepartLocationTable = new DepartLocationTable("Department Location");
-ProjectTable ProjectTable = new ProjectTable("Project");
+EmployeeTable em;
+Works_onTable w;
+DependentTable depend;
+DepartmentTable dep;
+DepartLocationTable depL;
+ProjectTable p;
 
 CompanyDB()
 {
-
 //First Frame
     f1.setLayout(null);
     f1.setBounds(450,100,500,500);
@@ -141,6 +140,13 @@ CompanyDB()
     ex2.setForeground(new Color(255,255,255));
     ex2.addActionListener(this);
     f2.add(ex2);
+    
+    p=new ProjectTable("project", f2);
+    dep = new DepartmentTable("Department", f2);
+    em = new EmployeeTable("Employee", f2);
+    depL = new DepartLocationTable("DepartLocation", f2);
+    w = new Works_onTable("Work_on", f2);
+    depend = new DependentTable("Dependent", f2);
 
 }    
     public static void main(String[] args) {
@@ -149,12 +155,6 @@ CompanyDB()
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        ProjectTable p=new ProjectTable("project");
-        DepartmentTable dep = new DepartmentTable("Department");
-        EmployeeTable em = new EmployeeTable("Employee");
-        DepartLocationTable depL = new DepartLocationTable("DepartLocation");
-        Works_onTable w = new Works_onTable("Work_on");
-        DependentTable depend = new DependentTable("Dependent");
        
         if(e.getSource()==sub)
         {
@@ -184,7 +184,7 @@ CompanyDB()
         if(e.getSource()== project)
             {
                 f2.setVisible(false);
-                p.setVisible(true); 
+                this.p.setVisible(true); 
             }
        
         else if(e.getSource()== department )

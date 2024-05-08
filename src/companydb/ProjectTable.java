@@ -17,7 +17,7 @@ public class ProjectTable extends Frame  implements ActionListener{
     TextField tPnumber=new TextField();
     Label location=new Label("Location");
     TextField tlocation=new TextField();
-    Label PDnumber=new Label("Number");
+    Label PDnumber=new Label("Deparment Number");
     TextField tPDnumber=new TextField();
 
 
@@ -29,9 +29,15 @@ public class ProjectTable extends Frame  implements ActionListener{
     Button back=new Button("Back");
 
     TextArea  outputT6=new TextArea();
+    
+    Frame main;
+    
+    String[] cols = new String[]{"Pname", "Pnumber", "Plocation", "Dnumber"};
+    TextField[] textFields = {tPname, tPnumber, tlocation, tPDnumber};
 
-    public ProjectTable(String title) {
+    public ProjectTable(String title, Frame main) {
         super(title);
+        this.main = main;
 
         setLayout(null);
         setBackground(new Color(0,0,0));
@@ -134,25 +140,24 @@ public class ProjectTable extends Frame  implements ActionListener{
     }
 
     public static void main(String[] args){
-        ProjectTable p = new ProjectTable("Project");
-        p.setVisible(true);
+//        ProjectTable p = new ProjectTable("Project");
+//        p.setVisible(true);
         
     }
 
     @Override
-    public void actionPerformed(ActionEvent p) {
-        CompanyDB e = new CompanyDB();   
+    public void actionPerformed(ActionEvent p) {  
         if(p.getSource()==select)
         {
             
         }
         if(p.getSource()==insert)
         {
-            
+            SqlCompanyDB.insert("PROJECT", SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
         if(p.getSource()==delete)
         {
-            
+            SqlCompanyDB.delete("PROJECT", "Pumber", tPnumber.getText());
         }
         if(p.getSource()==update)
         {
@@ -162,13 +167,12 @@ public class ProjectTable extends Frame  implements ActionListener{
         if(p.getSource()==back)
         {
             setVisible(false);
-            e.f2.setVisible(true);
+            main.setVisible(true);
         }
         if(p.getSource()==ex)
         {
             System.exit(0);
         }
-            e.f1.setVisible(false);
 
     }
 }

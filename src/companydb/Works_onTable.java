@@ -17,6 +17,8 @@ public class Works_onTable extends Frame  implements ActionListener{
     TextField tWPnumber=new TextField();
     Label hours=new Label("Hours");
     TextField thours=new TextField();
+    Label ID=new Label("ID");
+    TextField tID=new TextField();
 
     Button insert=new Button("Insert");
     Button delete=new Button("Delete");
@@ -27,9 +29,15 @@ public class Works_onTable extends Frame  implements ActionListener{
 
     JTable table;
     DefaultTableModel tableModel;
+    
+    Frame main;
+    
+    String[] cols = new String[]{"Essn", "Pnumber", "WHours"};
+    TextField[] textFields = {tEssn, tWPnumber, thours};
 
-    public Works_onTable(String title){
+    public Works_onTable(String title, Frame main) {
         super(title);
+        this.main = main;
 
         setLayout(null);
         setBackground(new Color(0,0,0));
@@ -65,6 +73,16 @@ public class Works_onTable extends Frame  implements ActionListener{
         thours.setBackground(new Color(220,225,225));
         thours.setForeground(new Color(0,0,0,0));
         add(thours);
+                
+        ID.setBounds(33,209,140,40);
+        ID.setBackground(new Color(0, 0, 0));
+        ID.setForeground(new Color(255,255,0));
+        add(ID);
+
+        tID.setBounds(175,209,266,40);
+        tID.setBackground(new Color(220, 225, 225));
+        tID.setForeground(new Color(0, 0, 0, 0));
+        add(tID);
 
         insert.setBounds(175,519,266,50);
         insert.setBackground(new Color(20,0,160));
@@ -110,97 +128,6 @@ public class Works_onTable extends Frame  implements ActionListener{
         tableModel.addRow(rowData1);
         Object[] rowData2 = {"2", "P001", "20"};
         tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
-        tableModel.addRow(rowData2);
 
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -209,24 +136,23 @@ public class Works_onTable extends Frame  implements ActionListener{
     }
 
     public static void main(String[] args){
-        Works_onTable w = new Works_onTable("Work_on");
-        w.setVisible(true);
+//        Works_onTable w = new Works_onTable("Work_on");
+//        w.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent w) {
-        CompanyDB e = new CompanyDB();
         if(w.getSource()==select)
         {
             
         }
         if(w.getSource()==insert)
         {
-            
+            SqlCompanyDB.insert("WORKS_ON", SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
         if(w.getSource()==delete)
         {
-            
+            SqlCompanyDB.delete("WORKS_ON", "Pumber", tID.getText());
         }
         if(w.getSource()==update)
         {
@@ -236,13 +162,11 @@ public class Works_onTable extends Frame  implements ActionListener{
         if(w.getSource()==back)
         {
             setVisible(false);
-            e.f2.setVisible(true);
+            main.setVisible(true);
         }
         if(w.getSource()==ex)
         {
             System.exit(0);
         }
-            e.f1.setVisible(false);
-
     }
 }

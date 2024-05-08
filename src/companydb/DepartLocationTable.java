@@ -25,9 +25,15 @@ public class DepartLocationTable extends Frame  implements ActionListener{
     Button back=new Button("Back");
 
     TextArea  outputT5=new TextArea();
-
-    DepartLocationTable(String title) {
+    
+    String[] cols = new String[]{"Dnumber", "Dlocation"}; 
+    TextField[] textFields = {tLDnumber,tDlocation};  
+    
+    Frame main;
+    
+    DepartLocationTable(String title, Frame main) {
         super(title);
+        this.main = main;
 
         setLayout(null);
         setBackground(new Color(0,0,0));
@@ -106,24 +112,23 @@ public class DepartLocationTable extends Frame  implements ActionListener{
         add(outputT5);
     }
     public static void main(String[] args) {
-        DepartLocationTable depL = new DepartLocationTable("DepartLocation");
-        depL.setVisible(true);
+//        DepartLocationTable depL = new DepartLocationTable("DepartLocation",this.main);
+//        depL.setVisible(true);
     }
 
     @Override
     public void actionPerformed(ActionEvent depL) {
-        CompanyDB e = new CompanyDB();
         if(depL.getSource()==select)
         {
             
         }
         if(depL.getSource()==insert)
         {
-            
+            SqlCompanyDB.insert("DEPT_LOCATIONS", SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
         if(depL.getSource()==delete)
         {
-            
+            SqlCompanyDB.delete("DEPT_LOCATIONS", "Dlocation", tDlocation.getText());
         }
         if(depL.getSource()==update)
         {
@@ -133,13 +138,11 @@ public class DepartLocationTable extends Frame  implements ActionListener{
         if(depL.getSource()==back)
         {
             setVisible(false);
-            e.f2.setVisible(true);
+            main.setVisible(true);
         }
         if(depL.getSource()==ex)
         {
             System.exit(0);
         }
-            e.f1.setVisible(false);            
-
     }
 }

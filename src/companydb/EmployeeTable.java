@@ -39,10 +39,15 @@ public class EmployeeTable extends Frame  implements ActionListener{
     
 
     TextArea  outputT1=new TextArea();
+    
+    Frame main;
+    
+    String[] cols = new String[]{"Fname", "Lname", "ssn", "addres", "sex", "Bdate", "Dnumber", "super_ssn", "salary"};
+    TextField[] textFields = {tfname, tlname, tssn, taddress, tEsex, tBdate, tEDnumber, tsuperSsn, tSalary};
 
-
-        EmployeeTable(String title) {
+        EmployeeTable(String title, Frame main) {
         super(title);
+        this.main = main;
 
         setLayout(null);
         setBackground(new Color(0,0,0));
@@ -198,26 +203,25 @@ public class EmployeeTable extends Frame  implements ActionListener{
     }
 
     public static void main(String[] args) {
-        EmployeeTable em = new EmployeeTable("Employee");
-        em.setVisible(true);
+//        EmployeeTable em = new EmployeeTable("Employee");
+//        em.setVisible(true);
 
     }
 
     @Override
 
     public void actionPerformed(ActionEvent em ) {
-        CompanyDB e = new CompanyDB();
         if(em.getSource()==select)
         {
             
         }
         if(em.getSource()==insert)
         {
-            
+            SqlCompanyDB.insert("employee", SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
         if(em.getSource()==delete)
         {
-            
+            SqlCompanyDB.delete("employee", "ssn", ssn.getText());
         }
         if(em.getSource()==update)
         {
@@ -225,7 +229,7 @@ public class EmployeeTable extends Frame  implements ActionListener{
         }
         if(em.getSource()==back)
         {
-            e.f2.setVisible(true);
+            main.setVisible(true);
             setVisible(false);
             
         }
@@ -233,7 +237,6 @@ public class EmployeeTable extends Frame  implements ActionListener{
         {
             System.exit(0);
         }
-    e.f1.setVisible(false);
     }
 
 
