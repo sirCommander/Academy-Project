@@ -5,6 +5,10 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
  import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -27,8 +31,9 @@ public class ProjectTable extends Frame  implements ActionListener{
     Button select=new Button("Select");
     Button ex=new Button("Exit");
     Button back=new Button("Back");
-
-    TextArea  outputT6=new TextArea();
+    
+    JTable table;
+    DefaultTableModel tableModel;
     
     Frame main;
     
@@ -131,11 +136,12 @@ public class ProjectTable extends Frame  implements ActionListener{
         ex.addActionListener(this);
         add(ex);
         
-    //TextArea
-        outputT6.setBounds(520,59,600,490);
-        outputT6.setBackground(new Color(160,0,0));
-        outputT6.setForeground(new Color(225, 225, 225));
-        add(outputT6);
+        tableModel = new DefaultTableModel(cols, 0);
+
+        table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(520,59,600,490);
+        add(scrollPane);
 
     }
 
@@ -149,7 +155,15 @@ public class ProjectTable extends Frame  implements ActionListener{
     public void actionPerformed(ActionEvent p) {  
         if(p.getSource()==select)
         {
-            
+            ResultSet result = SqlCompanyDB.select("PROJECT");
+            try {
+                tableModel.setRowCount(0);
+                while(result.next()){ //String[]{"Pname", "Pnumber", "Plocation", "Dnumber"};
+                    tableModel.addRow(new Object[]{result.getString("Pname"), result.getString("Pnumber"), result.getString("Plocation"), result.getString("Dnumber")});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if(p.getSource()==insert)
         {
@@ -161,7 +175,7 @@ public class ProjectTable extends Frame  implements ActionListener{
         }
         if(p.getSource()==update)
         {
-            
+            SqlCompanyDB.update("PROJECT", "Pumber", tPnumber.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
 
         if(p.getSource()==back)

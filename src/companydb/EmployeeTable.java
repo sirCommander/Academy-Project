@@ -5,6 +5,10 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
  import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -37,8 +41,8 @@ public class EmployeeTable extends Frame  implements ActionListener{
     Button ex=new Button("Exit");
     Button back=new Button("Back");
     
-
-    TextArea  outputT1=new TextArea();
+    JTable table;
+    DefaultTableModel tableModel;
     
     Frame main;
     
@@ -195,11 +199,12 @@ public class EmployeeTable extends Frame  implements ActionListener{
         ex.addActionListener(this);
         add(ex);
         
-    //TextArea
-        outputT1.setBounds(520,59,600,490);
-        outputT1.setBackground(new Color(160,0,0));
-        outputT1.setForeground(new Color(225, 225, 225));
-        add(outputT1);
+        tableModel = new DefaultTableModel(cols, 0);
+
+        table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(520,59,600,490);
+        add(scrollPane);    
     }
 
     public static void main(String[] args) {
@@ -213,7 +218,15 @@ public class EmployeeTable extends Frame  implements ActionListener{
     public void actionPerformed(ActionEvent em ) {
         if(em.getSource()==select)
         {
-            
+            ResultSet result = SqlCompanyDB.select("employee");
+            try {
+                tableModel.setRowCount(0);
+                while(result.next()){ //String[]{"Fname", "Lname", "ssn", "addres", "sex", "Bdate", "Dnumber", "super_ssn", "salary"};
+                    tableModel.addRow(new Object[]{result.getString("Fname"), result.getString("Lname"), result.getString("ssn"), result.getString("addres"), result.getString("sex"), result.getString("Bdate"), result.getString("Dnumber"), result.getString("super_ssn"), result.getString("salary")});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if(em.getSource()==insert)
         {
@@ -221,11 +234,11 @@ public class EmployeeTable extends Frame  implements ActionListener{
         }
         if(em.getSource()==delete)
         {
-            SqlCompanyDB.delete("employee", "ssn", ssn.getText());
+            SqlCompanyDB.delete("employee", "ssn", tssn.getText());
         }
         if(em.getSource()==update)
         {
-            
+            SqlCompanyDB.update("employee", "ssn", tssn.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
         if(em.getSource()==back)
         {

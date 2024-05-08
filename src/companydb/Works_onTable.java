@@ -5,6 +5,10 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
  import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -32,8 +36,8 @@ public class Works_onTable extends Frame  implements ActionListener{
     
     Frame main;
     
-    String[] cols = new String[]{"Essn", "Pnumber", "WHours"};
-    TextField[] textFields = {tEssn, tWPnumber, thours};
+    String[] cols = new String[]{"Essn", "Pnumber", "WHours", "ID"};
+    TextField[] textFields = {tEssn, tWPnumber, thours, tID};
 
     public Works_onTable(String title, Frame main) {
         super(title);
@@ -122,12 +126,7 @@ public class Works_onTable extends Frame  implements ActionListener{
         ex.addActionListener(this);
         add(ex);
 
-        tableModel = new DefaultTableModel(new String[]{"Social Security Number", "Project Number", "Hours"}, 0);
-
-        Object[] rowData1 = {"1", "P001", "20"};
-        tableModel.addRow(rowData1);
-        Object[] rowData2 = {"2", "P001", "20"};
-        tableModel.addRow(rowData2);
+        tableModel = new DefaultTableModel(cols, 0);
 
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
@@ -144,7 +143,15 @@ public class Works_onTable extends Frame  implements ActionListener{
     public void actionPerformed(ActionEvent w) {
         if(w.getSource()==select)
         {
-            
+            ResultSet result = SqlCompanyDB.select("WORKS_ON");
+            try {
+                tableModel.setRowCount(0);
+                while(result.next()){ //String[] cols = new String[]{"Essn", "Pnumber", "WHours"};
+                    tableModel.addRow(new Object[]{result.getString("Essn"), result.getString("Pnumber"), result.getString("WHours"), result.getString("ID")});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if(w.getSource()==insert)
         {
@@ -156,7 +163,7 @@ public class Works_onTable extends Frame  implements ActionListener{
         }
         if(w.getSource()==update)
         {
-            
+            SqlCompanyDB.update("WORKS_ON", "Pumber", tID.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
 
         if(w.getSource()==back)

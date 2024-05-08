@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
  import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+ import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  
 public class DepartmentTable extends Frame  implements ActionListener{
 
@@ -27,8 +31,9 @@ public class DepartmentTable extends Frame  implements ActionListener{
     TextField tstartDate=new TextField();
     Label Mssn=new Label("social security number");
     TextField tMssn=new TextField();
-
-    TextArea  outputT4=new TextArea();
+    
+    JTable table;
+    DefaultTableModel tableModel;
     
     String[] cols = new String[]{"Dname", "Dnumber", "M_start_date", "M_ssn"};
     TextField[] textFields = {tDname, tDnumber, tstartDate, tMssn};
@@ -130,11 +135,12 @@ public class DepartmentTable extends Frame  implements ActionListener{
         ex.addActionListener(this);
         add(ex);
         
-    //TextArea
-        outputT4.setBounds(520,59,600,490);
-        outputT4.setBackground(new Color(160,0,0));
-        outputT4.setForeground(new Color(225, 225, 225));
-        add(outputT4);
+        tableModel = new DefaultTableModel(cols, 0);
+
+        table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(520,59,600,490);
+        add(scrollPane);
     }
     public static void main(String[] args) {
 //        DepartmentTable dep = new DepartmentTable("Department");
@@ -143,9 +149,16 @@ public class DepartmentTable extends Frame  implements ActionListener{
    
     @Override
     public void actionPerformed(ActionEvent dep) {
-        if(dep.getSource()==select)
-        {
-            
+        if(dep.getSource()==select){
+            ResultSet result = SqlCompanyDB.select("Department");
+            try {
+                tableModel.setRowCount(0);
+                while(result.next()){ //   String[] cols = new String[]{"Dname", "Dnumber", "M_start_date", "M_ssn"};
+                    tableModel.addRow(new Object[]{result.getString("Dname"), result.getString("Dnumber"), result.getString("M_start_date"), result.getString("M_ssn")});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if(dep.getSource()==insert)
         {
@@ -157,7 +170,7 @@ public class DepartmentTable extends Frame  implements ActionListener{
         }
         if(dep.getSource()==update)
         {
-            
+            SqlCompanyDB.update("Department", "Dnumber", tDnumber.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
 
         if(dep.getSource()==back)

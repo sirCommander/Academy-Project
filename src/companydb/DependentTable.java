@@ -5,6 +5,10 @@ import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
  import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -28,8 +32,9 @@ public class DependentTable extends Frame  implements ActionListener{
     Button select=new Button("Select");
     Button ex=new Button("Exit");
     Button back=new Button("Back");
-
-    TextArea  outputT3=new TextArea();
+    
+    JTable table;
+    DefaultTableModel tableModel;
     
     Frame main;
     
@@ -146,10 +151,12 @@ public class DependentTable extends Frame  implements ActionListener{
         add(ex);
         
     //TextArea
-        outputT3.setBounds(520,59,600,490);
-        outputT3.setBackground(new Color(160,0,0));
-        outputT3.setForeground(new Color(225, 225, 225));
-        add(outputT3);
+       tableModel = new DefaultTableModel(cols, 0);
+
+        table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBounds(520,59,600,490);
+        add(scrollPane);
     }
 
     public static void main(String[] args) {
@@ -161,7 +168,15 @@ public class DependentTable extends Frame  implements ActionListener{
     public void actionPerformed(ActionEvent depend) {
         if(depend.getSource()==select)
         {
-            
+            ResultSet result = SqlCompanyDB.select("DEPENDENT1");
+            try {
+                tableModel.setRowCount(0);
+                while(result.next()){ //String[] cols = new String[]{"Essn", "Dependent_name", "sex", "Bdate", "Relationship"};
+                    tableModel.addRow(new Object[]{result.getString("Essn"), result.getString("Dependent_name"), result.getString("sex"), result.getString("Bdate"), result.getString("Relationship")});
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DepartmentTable.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if(depend.getSource()==insert)
         {
@@ -169,11 +184,11 @@ public class DependentTable extends Frame  implements ActionListener{
         }
         if(depend.getSource()==delete)
         {
-            SqlCompanyDB.delete("DEPENDENT1", "Essn", DEssn.getText());
+            SqlCompanyDB.delete("DEPENDENT1", "Essn", tDEssn.getText());
         }
         if(depend.getSource()==update)
         {
-            
+            SqlCompanyDB.update("DEPENDENT1", "Essn", tDEssn.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
 
         if(depend.getSource()==back)

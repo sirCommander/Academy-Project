@@ -32,32 +32,6 @@ public class SqlCompanyDB {
      } catch (SQLException ex) { 
          System.out.println("ERROR Connection"); }
      }
-    public static boolean executeNonquary (String sqlStatement) { //to update, delete, insert
-     try{ 
-        //ConnectToSQL();
-        Statement stmt = con.createStatement();
-        stmt.execute(sqlStatement);
-        return true;
-     }catch (Exception e){
-     System.out.println(e);
-        //JOptionPane.showMessageDialog(null,"Cant make your edit");
-        return false;
-     }
-     
-    }
-     public static ResultSet executeQuary (String sqlStatement) { //to update, delete, insert
-     try{ 
-        //ConnectToSQL();
-        Statement stmt = con.createStatement();
-        return stmt.executeQuery(sqlStatement);
-        //return true;
-     }catch (Exception e){
-        System.out.println(e);
-        //JOptionPane.showMessageDialog(null,"Cant make your edit");
-        return null;
-     }
-
-    }
 
     public static boolean insert(String table, String[] cols, String[] values){
         try{ 
@@ -91,7 +65,21 @@ public class SqlCompanyDB {
         }
     }
     
-    public static boolean update(String table, String primaryKey, String[] cols, String[] values){
+    public static ResultSet select(String table){
+        try{ 
+        //ConnectToSQL();
+            Statement stmt = con.createStatement();
+            System.out.println("SELECT * FROM " + table + ";");
+            ResultSet result = stmt.executeQuery("SELECT * FROM " + table + ";");
+            return result;
+        }catch (Exception e){
+            System.out.println(e);
+            //JOptionPane.showMessageDialog(null,"Cant make your edit");
+            return null;
+        }
+    }
+    
+    public static boolean update(String table, String primaryKey, String value, String[] cols, String[] values){
         try{ 
         //ConnectToSQL();
             String[] vals = new String[cols.length];
@@ -100,11 +88,14 @@ public class SqlCompanyDB {
             }
             Statement stmt = con.createStatement();
             
-            for (int i = 0; i < cols.length ; i++){
-                
+            String edits = "";
+            for (int i = 0; i < cols.length ; i++){// col = val, col = val
+                edits += cols[i] + " = " + vals[i];
+                if(i != cols.length - 1)
+                    edits += ", ";
             }
-            System.out.println("INSERT INTO " + table + " (" + String.join(", ", cols) + ") VALUES ( "+ String.join(", ", vals) + ");");
-            stmt.execute("UPDATE " + table + " SET " + String.join(", ", cols) + " "+ String.join(", ", vals) + ";");
+            System.out.println("UPDATE " + table + " SET " + edits + " WHERE " + primaryKey + " = '" + value + "';");
+            stmt.execute("UPDATE " + table + " SET " + edits + " WHERE " + primaryKey + " = '" + value + "';");
             return true;
         }catch (Exception e){
             System.out.println(e);
