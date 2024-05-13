@@ -1,0 +1,42 @@
+create database companyDB
+use companyDB
+CREATE TABLE DEPARTMENT
+(	Dname nvarchar(30) UNIQUE ,
+	Dnumber int  PRIMARY KEY,
+    M_start_date date 
+--   M_ssn char(10) FOREIGN KEY REFERENCES EMPLOYEE(ssn), in the  Last line use " alter table department add M_ssn char(10) FOREIGN KEY REFERENCES EMPLOYEE(ssn); "
+); 
+create table employee
+( 	ssn char(10) PRIMARY KEY ,
+    super_ssn char(10) FOREIGN KEY REFERENCES EMPLOYEE(Ssn),
+    Dnumber int  FOREIGN KEY REFERENCES DEPARTMENT(Dnumber),
+    Bdate date,
+    addres nvarchar(30),
+    Fname nvarchar(30) NOT NULL,
+    Lname nvarchar(30) NOT NULL,
+	sex nvarchar(10),
+    salary decimal(10,2)
+);
+CREATE TABLE DEPT_LOCATIONS
+(   Dnumber INT FOREIGN KEY REFERENCES DEPARTMENT(Dnumber),
+    Dlocation VARCHAR(15) PRIMARY KEY 
+);
+CREATE TABLE PROJECT
+(	Pname nVARCHAR(30) UNIQUE,
+    Pnumber INT PRIMARY KEY,
+    Plocation nVARCHAR(30),
+    Dnumber INT FOREIGN KEY REFERENCES DEPARTMENT(Dnumber)
+);
+CREATE TABLE WORKS_ON
+(	Essn CHAR(10) primary key FOREIGN KEY REFERENCES EMPLOYEE(Ssn),
+    Pnumber INT FOREIGN KEY REFERENCES PROJECT(Pnumber),
+    WHous Char(8) NOT NULL,
+);
+CREATE TABLE DEPENDENT1
+(	Essn CHAR(10) primary key FOREIGN KEY REFERENCES EMPLOYEE(ssn),
+    Dependent_name VARCHAR(15)  NOT NULL,
+    sex CHAR,
+    Bdate DATE,
+    Relationship VARCHAR(8),
+);
+alter table department add M_ssn char(10) FOREIGN KEY REFERENCES EMPLOYEE(ssn);
