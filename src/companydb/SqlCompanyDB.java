@@ -16,14 +16,14 @@ public class SqlCompanyDB {
     public static Connection con;
     public static void ConnectToSQL(){ // to connect to SQL
      try {
-     String url = "jdbc:sqlserver://localhost:1433;databaseName=companyDB;integratedSecurity=false;encrypt=false;";
-     String username ="123";
-     String password ="123";
+        String url = "jdbc:sqlserver://localhost:1433;databaseName=companyDB;integratedSecurity=false;encrypt=false;";
+        String username ="123";
+        String password ="123";
      con = DriverManager.getConnection(url, username, password);
      System.out.println("CONNECTED");
      } catch (SQLException ex) {
-     Logger.getLogger(SqlCompanyDB.class.getName()).log(Level.SEVERE, null, ex);
-     System.out.println("Error CONNECTION");
+        Logger.getLogger(SqlCompanyDB.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println("Error CONNECTION");
      }}
     
      public static void Close () { // to close the connection of SQL
@@ -44,7 +44,7 @@ public class SqlCompanyDB {
             System.out.println("INSERT INTO " + table + " (" + String.join(", ", cols) + ") VALUES ( "+ String.join(", ", vals) + ");");
             stmt.execute("INSERT INTO " + table + " (" + String.join(", ", cols) + ") VALUES ( "+ String.join(", ", vals) + ");");
             return true;
-        }catch (Exception e){
+        }catch (SQLException e){
             System.out.println(e);
             //JOptionPane.showMessageDialog(null,"Cant make your edit");
             return false;
@@ -58,7 +58,7 @@ public class SqlCompanyDB {
             System.out.println("DELETE FROM " + table + " WHERE " + primaryKey + " = '" + value + "';");
             stmt.execute("DELETE FROM " + table + " WHERE " + primaryKey + " = '" + value + "';");
             return true;
-        }catch (Exception e){
+        }catch (SQLException e){
             System.out.println(e);
             //JOptionPane.showMessageDialog(null,"Cant make your edit");
             return false;
@@ -72,7 +72,7 @@ public class SqlCompanyDB {
             System.out.println("SELECT * FROM " + table + ";");
             ResultSet result = stmt.executeQuery("SELECT * FROM " + table + ";");
             return result;
-        }catch (Exception e){
+        }catch (SQLException e){
             System.out.println(e);
             //JOptionPane.showMessageDialog(null,"Cant make your edit");
             return null;
@@ -97,7 +97,7 @@ public class SqlCompanyDB {
             System.out.println("UPDATE " + table + " SET " + edits + " WHERE " + primaryKey + " = '" + value + "';");
             stmt.execute("UPDATE " + table + " SET " + edits + " WHERE " + primaryKey + " = '" + value + "';");
             return true;
-        }catch (Exception e){
+        }catch (SQLException e){
             System.out.println(e);
             //JOptionPane.showMessageDialog(null,"Cant make your edit");
             return false;
@@ -125,9 +125,8 @@ public class SqlCompanyDB {
         
         String[] result = new String[numberOfFilled];
         for(int i = 0; i < indexes.size(); i++){
-                result[i] = textFields[indexes.get(i)].getText();
+            result[i] = textFields[indexes.get(i)].getText();
         }
-        System.out.println("GetColumnsValues: " + String.join(", ", result));
         return result;
     }
     
@@ -149,8 +148,6 @@ public class SqlCompanyDB {
         for(int i = 0; i < indexes.size(); i++){
                 result[i] = cols[indexes.get(i)];
         }
-        
-        System.out.println("GetColumns: " + String.join(", ", result));
         return result;
     }
 }

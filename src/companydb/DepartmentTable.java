@@ -25,11 +25,11 @@ public class DepartmentTable extends Frame  implements ActionListener{
 
     Label Dname=new Label("Name");
     TextField tDname=new TextField();
-    Label Dnumber=new Label("Dnumber");
+    JLabel Dnumber=new JLabel("🔑Dep. number");
     TextField tDnumber=new TextField();
     Label startDate=new Label("Start date");
     TextField tstartDate=new TextField();
-    Label Mssn=new Label("social security number");
+    JLabel Mssn=new JLabel("🗝️Manager SSN");
     TextField tMssn=new TextField();
     
     JTable table;
@@ -62,7 +62,7 @@ public class DepartmentTable extends Frame  implements ActionListener{
     //Dnumber
         Dnumber.setBounds(33,109,140,40);
         Dnumber.setBackground(new Color(0,0,0));
-        Dnumber.setForeground(new Color(255,255,0));
+        Dnumber.setForeground(new Color(255,0,0));
         add(Dnumber);
 
         tDnumber.setBounds(175,109,266,40);
@@ -81,10 +81,10 @@ public class DepartmentTable extends Frame  implements ActionListener{
         tstartDate.setForeground(new Color(0,0,0,0));
         add(tstartDate);
 
-    //Start date
+    //Manager SSN
         Mssn.setBounds(33,209,140,40);
         Mssn.setBackground(new Color(0, 0, 0));
-        Mssn.setForeground(new Color(255,255,0));
+        Mssn.setForeground(new Color(0,255,0));
         add(Mssn);
 
         tMssn.setBounds(175,209,266,40);

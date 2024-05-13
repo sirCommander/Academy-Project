@@ -19,8 +19,10 @@ import java.util.logging.Logger;
 
 public class CompanyDB extends Frame implements ActionListener {
 //first frame
-Frame f1=new Frame("Home");
-Label uName=new Label("UserName");
+    
+    
+Frame f1 = new Frame("Home");
+Label uName = new Label("UserName");
 TextField tUName=new TextField();
 
 Label pass=new Label("Password");
@@ -155,7 +157,6 @@ CompanyDB()
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       
         if(e.getSource()==sub)
         {
             if(tUName.getText().equals("123"))

@@ -4,12 +4,10 @@ import java.awt.*;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
  import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +17,7 @@ public class EmployeeTable extends Frame  implements ActionListener{
     TextField tfname=new TextField();
     Label lname=new Label("Last name");
     TextField tlname=new TextField();
-    Label ssn=new Label("Social Security number");
+    JLabel ssn=new JLabel("🔑Social Security number");
     TextField tssn=new TextField();
     Label address=new Label("Address");
     TextField taddress=new TextField();
@@ -27,9 +25,9 @@ public class EmployeeTable extends Frame  implements ActionListener{
     TextField tEsex=new TextField();
     Label Bdate=new Label("Birth date");
     TextField tBdate=new TextField();
-    Label EDnumber=new Label("Dnumber");
+    JLabel EDnumber=new JLabel("🗝️Dnumber");
     TextField tEDnumber=new TextField();
-    Label superSsn=new Label("Supervisor");
+    JLabel superSsn=new JLabel("🗝️Supervisor");
     TextField tsuperSsn=new TextField();
     Label salary=new Label("Salary");
     TextField tSalary=new TextField();
@@ -49,7 +47,7 @@ public class EmployeeTable extends Frame  implements ActionListener{
     String[] cols = new String[]{"Fname", "Lname", "ssn", "addres", "sex", "Bdate", "Dnumber", "super_ssn", "salary"};
     TextField[] textFields = {tfname, tlname, tssn, taddress, tEsex, tBdate, tEDnumber, tsuperSsn, tSalary};
 
-        EmployeeTable(String title, Frame main) {
+    EmployeeTable(String title, Frame main) {
         super(title);
         this.main = main;
 
@@ -81,9 +79,9 @@ public class EmployeeTable extends Frame  implements ActionListener{
         add(tlname);
 
     //Social Security number
-        ssn.setBounds(33,159,140,40);
+        ssn.setBounds(13,159,145,40);
         ssn.setBackground(new Color(0, 0, 0));
-        ssn.setForeground(new Color(255,255,0));
+        ssn.setForeground(new Color(255,0,0));
         add(ssn);
 
         tssn.setBounds(175,159,266,40);
@@ -126,7 +124,7 @@ public class EmployeeTable extends Frame  implements ActionListener{
     //Dnumber
         EDnumber.setBounds(33,359,140,40);
         EDnumber.setBackground(new Color(0, 0, 0));
-        EDnumber.setForeground(new Color(255, 255, 0));
+        EDnumber.setForeground(new Color(0, 255, 0));
         add(EDnumber);
 
         tEDnumber.setBounds(175,359,266,40);
@@ -137,7 +135,7 @@ public class EmployeeTable extends Frame  implements ActionListener{
     //Supervisor
         superSsn.setBounds(33,409,140,40);
         superSsn.setBackground(new Color(0, 0, 0));
-        superSsn.setForeground(new Color(255, 255, 0));
+        superSsn.setForeground(new Color(0, 255, 0));
         add(superSsn);
 
         tsuperSsn.setBounds(175,409,266,40);
@@ -206,15 +204,8 @@ public class EmployeeTable extends Frame  implements ActionListener{
         scrollPane.setBounds(520,59,600,490);
         add(scrollPane);    
     }
-
-    public static void main(String[] args) {
-//        EmployeeTable em = new EmployeeTable("Employee");
-//        em.setVisible(true);
-
-    }
-
+    
     @Override
-
     public void actionPerformed(ActionEvent em ) {
         if(em.getSource()==select)
         {

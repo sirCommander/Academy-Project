@@ -21,7 +21,7 @@ public class ProjectTable extends Frame  implements ActionListener{
     TextField tPnumber=new TextField();
     Label location=new Label("Location");
     TextField tlocation=new TextField();
-    Label PDnumber=new Label("Deparment Number");
+    JLabel PDnumber=new JLabel("🗝️Deparment Number");
     TextField tPDnumber=new TextField();
 
 
@@ -63,7 +63,7 @@ public class ProjectTable extends Frame  implements ActionListener{
     //Number
         Pnumber.setBounds(33,109,140,40);
         Pnumber.setBackground(new Color(0,0,0));
-        Pnumber.setForeground(new Color(255,255,0));
+        Pnumber.setForeground(new Color(255,0,0));
         add(Pnumber);
 
         tPnumber.setBounds(175,109,266,40);
@@ -82,10 +82,10 @@ public class ProjectTable extends Frame  implements ActionListener{
         tlocation.setForeground(new Color(0,0,0,0));
         add(tlocation);
 
-    //Number
+    //Department Number
         PDnumber.setBounds(33,209,140,40);
         PDnumber.setBackground(new Color(0, 0, 0));
-        PDnumber.setForeground(new Color(255,255,0));
+        PDnumber.setForeground(new Color(0,255,0));
         add(PDnumber);
 
         tPDnumber.setBounds(175,209,266,40);
@@ -171,11 +171,11 @@ public class ProjectTable extends Frame  implements ActionListener{
         }
         if(p.getSource()==delete)
         {
-            SqlCompanyDB.delete("PROJECT", "Pumber", tPnumber.getText());
+            SqlCompanyDB.delete("PROJECT", "Pnumber", tPnumber.getText());
         }
         if(p.getSource()==update)
         {
-            SqlCompanyDB.update("PROJECT", "Pumber", tPnumber.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
+            SqlCompanyDB.update("PROJECT", "Pnumber", tPnumber.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
 
         if(p.getSource()==back)

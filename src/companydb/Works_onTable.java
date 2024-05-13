@@ -15,14 +15,12 @@ import javax.swing.table.DefaultTableModel;
  
 public class Works_onTable extends Frame  implements ActionListener{
 
-    Label Essn=new Label("Social Security number");
+    JLabel Essn=new JLabel("🗝️Emp. SSN");
     TextField tEssn=new TextField();
-    Label WPnumber=new Label("number");
+    JLabel WPnumber=new JLabel("🗝️Project number");
     TextField tWPnumber=new TextField();
     Label hours=new Label("Hours");
     TextField thours=new TextField();
-    Label ID=new Label("ID");
-    TextField tID=new TextField();
 
     Button insert=new Button("Insert");
     Button delete=new Button("Delete");
@@ -36,8 +34,8 @@ public class Works_onTable extends Frame  implements ActionListener{
     
     Frame main;
     
-    String[] cols = new String[]{"Essn", "Pnumber", "WHours", "ID"};
-    TextField[] textFields = {tEssn, tWPnumber, thours, tID};
+    String[] cols = new String[]{"Essn", "Pnumber", "WHours"};
+    TextField[] textFields = {tEssn, tWPnumber, thours};
 
     public Works_onTable(String title, Frame main) {
         super(title);
@@ -77,16 +75,6 @@ public class Works_onTable extends Frame  implements ActionListener{
         thours.setBackground(new Color(220,225,225));
         thours.setForeground(new Color(0,0,0,0));
         add(thours);
-                
-        ID.setBounds(33,209,140,40);
-        ID.setBackground(new Color(0, 0, 0));
-        ID.setForeground(new Color(255,255,0));
-        add(ID);
-
-        tID.setBounds(175,209,266,40);
-        tID.setBackground(new Color(220, 225, 225));
-        tID.setForeground(new Color(0, 0, 0, 0));
-        add(tID);
 
         insert.setBounds(175,519,266,50);
         insert.setBackground(new Color(20,0,160));
@@ -147,7 +135,7 @@ public class Works_onTable extends Frame  implements ActionListener{
             try {
                 tableModel.setRowCount(0);
                 while(result.next()){ //String[] cols = new String[]{"Essn", "Pnumber", "WHours"};
-                    tableModel.addRow(new Object[]{result.getString("Essn"), result.getString("Pnumber"), result.getString("WHours"), result.getString("ID")});
+                    tableModel.addRow(new Object[]{result.getString("Essn"), result.getString("Pnumber"), result.getString("WHours")});
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(DepartmentTable.class.getName()).log(Level.SEVERE, null, ex);
@@ -159,11 +147,11 @@ public class Works_onTable extends Frame  implements ActionListener{
         }
         if(w.getSource()==delete)
         {
-            SqlCompanyDB.delete("WORKS_ON", "Pumber", tID.getText());
+            SqlCompanyDB.delete("WORKS_ON", "Pnumber", tEssn.getText());
         }
         if(w.getSource()==update)
         {
-            SqlCompanyDB.update("WORKS_ON", "Pumber", tID.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
+            SqlCompanyDB.update("WORKS_ON", "Pnumber", tEssn.getText(), SqlCompanyDB.getColumns(textFields, cols), SqlCompanyDB.getColumnsValue(textFields));
         }
 
         if(w.getSource()==back)

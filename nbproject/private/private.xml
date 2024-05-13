@@ -4,13 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/SqlCompanyDB.java</file>
+            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/ProjectTable.java</file>
             <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/CompanyDB.java</file>
-            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/works_on.java</file>
-            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/department.java</file>
-            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/dependent.java</file>
-            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/employee.java</file>
-            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/depart_Location.java</file>
-            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/project.java</file>
+            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/DepartLocationTable.java</file>
+            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/Works_onTable.java</file>
+            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/EmployeeTable.java</file>
+            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/DependentTable.java</file>
+            <file>file:/D:/1%20A%20Mohamed%20Hesham%20code/code%20programming/java/code%20java/CompanyDB/src/companydb/DepartmentTable.java</file>
         </group>
     </open-files>
 </project-private>

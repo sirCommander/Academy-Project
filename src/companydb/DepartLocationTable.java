@@ -15,9 +15,9 @@ import java.sql.ResultSet;
  
 public class DepartLocationTable extends Frame  implements ActionListener{
 
-    Label LDnumber=new Label("Department number");
+    JLabel LDnumber=new JLabel("🗝️Department number");
     TextField tLDnumber=new TextField();
-    Label Dlocation=new Label("Department location");
+    JLabel Dlocation=new JLabel("🔑Department location");
     TextField tDlocation=new TextField();
 
 
@@ -48,7 +48,7 @@ public class DepartLocationTable extends Frame  implements ActionListener{
     //Department number
         LDnumber.setBounds(33,59,140,40);
         LDnumber.setBackground(new Color(0,0,0));
-        LDnumber.setForeground(new Color(255,255,0));
+        LDnumber.setForeground(new Color(0,255,0));
         add(LDnumber);
 
         tLDnumber.setBounds(175,59,266,40);
@@ -59,7 +59,7 @@ public class DepartLocationTable extends Frame  implements ActionListener{
     //Department location
         Dlocation.setBounds(33,109,140,40);
         Dlocation.setBackground(new Color(0,0,0));
-        Dlocation.setForeground(new Color(255,255,0));
+        Dlocation.setForeground(new Color(255,0,0));
         add(Dlocation);
 
         tDlocation.setBounds(175,109,266,40);

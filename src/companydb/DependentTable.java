@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableModel;
  
 public class DependentTable extends Frame  implements ActionListener{
 
-    Label DEssn=new Label("Social Security number");
+    JLabel D2Essn=new JLabel("🔑🗝Emp.");
+    JLabel DEssn=new JLabel("️SSN");
     TextField tDEssn=new TextField();
     Label dependentName=new Label("Dependent name");
     TextField tdependentName=new TextField();
@@ -52,10 +53,15 @@ public class DependentTable extends Frame  implements ActionListener{
 
 
     //Social Security number
-        DEssn.setBounds(33,59,140,40);
+        DEssn.setBounds(68,59,90,40);
         DEssn.setBackground(new Color(0,0,0));
-        DEssn.setForeground(new Color(255,255,0));
+        DEssn.setForeground(new Color(255,0,0));
         add(DEssn);
+     
+        D2Essn.setBounds(13,59,100,40);
+        D2Essn.setBackground(new Color(0,0,0));
+        D2Essn.setForeground(new Color(0,255,0));
+        add(D2Essn);
 
         tDEssn.setBounds(175,59,266,40);
         tDEssn.setBackground(new Color(220,225,225));
